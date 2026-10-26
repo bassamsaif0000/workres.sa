@@ -28,7 +28,13 @@
     .language{padding:8px 11px;border:1px solid #e7e9e4;border-radius:999px;background:#fff;color:#20251f;font-size:12px;cursor:pointer;white-space:nowrap}
     main{width:100%}
     .blank-section{height:76vh;min-height:390px;background:#fff;scroll-margin-top:88px}
-    footer{width:min(1200px,calc(100% - 48px));min-height:62px;margin:auto;border-top:1px solid #eceeea;display:flex;align-items:center;justify-content:center;text-align:center;color:#555;font-size:12px}
+    footer{width:min(1200px,calc(100% - 48px));min-height:76px;margin:auto;border-top:1px solid #eceeea;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;color:#555;font-size:12px;padding:16px 0}
+    .footer-socials{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px 18px}
+    .footer-socials a{display:inline-flex;align-items:center;gap:5px;color:#353a34;white-space:nowrap}
+    .footer-socials a:hover{text-decoration:underline}
+    .footer-socials a span{color:#858a82;font-size:11px}
+    .copyright{display:block;color:#686d65}
+    @media(max-width:720px){footer{width:calc(100% - 30px)}.footer-socials{gap:10px 14px}.footer-socials a{font-size:11px}}
     @media(max-width:880px){.header{gap:12px}.brand{font-size:17px}.nav{gap:12px;font-size:13px}.actions{gap:6px}.talk{padding:9px 12px}}
     @media(max-width:720px){
       .header{width:calc(100% - 30px);min-height:76px;position:relative;flex-wrap:wrap;justify-content:space-between;gap:9px;padding:12px 0}
@@ -73,7 +79,17 @@
     <section class="blank-section" id="impact" aria-label="إنجازاتنا"></section>
     <section class="blank-section" id="contact" aria-label="لنتحدث"></section>
   </main>
-  <footer><span data-ar="© 2026 جميع الحقوق محفوظة." data-en="© 2026 All rights reserved.">© 2026 جميع الحقوق محفوظة.</span></footer>
+  <footer class="footer">
+    <div class="footer-socials" aria-label="حسابات التواصل الاجتماعي">
+      <a href="https://instagram.com/yourcompany" target="_blank" rel="noopener noreferrer" aria-label="Instagram">Instagram <span>@yourcompany</span></a>
+      <a href="https://snapchat.com/add/yourcompany" target="_blank" rel="noopener noreferrer" aria-label="Snapchat">Snapchat <span>@yourcompany</span></a>
+      <a href="https://youtube.com/@yourcompany" target="_blank" rel="noopener noreferrer" aria-label="YouTube">YouTube <span>@yourcompany</span></a>
+      <a href="https://tiktok.com/@yourcompany" target="_blank" rel="noopener noreferrer" aria-label="TikTok">TikTok <span>@yourcompany</span></a>
+      <a href="https://x.com/yourcompany" target="_blank" rel="noopener noreferrer" aria-label="X">X <span>@yourcompany</span></a>
+      <a href="https://wa.me/966500000000" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">WhatsApp <span dir="ltr">+966 50 000 0000</span></a>
+    </div>
+    <span class="copyright" data-ar="© 2026 جميع الحقوق محفوظة." data-en="© 2026 All rights reserved.">© 2026 جميع الحقوق محفوظة.</span>
+  </footer>
   <script>
     (() => {
       const root = document.documentElement;
