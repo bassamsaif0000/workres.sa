@@ -20,6 +20,7 @@
     .brand-mark{width:35px;height:35px;border-radius:10px;background:#20251f;color:#fff;display:grid;place-items:center}
     .brand-mark svg{width:22px;height:22px}
     .nav{display:flex;align-items:center;justify-content:flex-start;gap:clamp(12px,2vw,27px);flex:1;min-width:0;color:#5c625a;font-size:14px}
+    .nav.closed{display:none}
     .nav a{white-space:nowrap;padding:9px 0;border-bottom:2px solid transparent}
     .nav a:hover,.nav a.active{color:#20251f;border-bottom-color:#20251f}
     .actions{display:flex;align-items:center;gap:9px;flex:0 0 auto}
@@ -36,6 +37,7 @@
       .actions{order:2}
       .nav{display:none;order:3;position:absolute;top:68px;right:0;left:0;z-index:10;flex:1 1 100%;flex-direction:column;align-items:stretch;gap:0;padding:8px 16px;border:1px solid #e7e9e4;border-radius:13px;background:#fff;box-shadow:0 12px 28px #0000000a}
       .nav.open{display:flex}
+      .nav.closed{display:none}
       .nav a{padding:11px 0;border-bottom:1px solid #f0f1ee}
       .nav a:last-child{border-bottom:0}
       footer{width:calc(100% - 30px)}
@@ -87,12 +89,18 @@
           element.textContent = element.dataset[language];
         });
         languageButton.textContent = language === "ar" ? "EN ↗" : "العربية ↗";
-        menuButton.setAttribute("aria-label", language === "ar" ? "فتح القائمة" : "Open menu");
+        const menuOpen = menuButton.getAttribute("aria-expanded") === "true";
+        menuButton.setAttribute("aria-label", language === "ar" ? (menuOpen ? "إغلاق القائمة" : "فتح القائمة") : (menuOpen ? "Close menu" : "Open menu"));
         document.title = language === "ar" ? "اسم الشركة" : "Company name";
       };
       menuButton.addEventListener("click", () => {
-        const isOpen = navigation.classList.toggle("open");
-        menuButton.setAttribute("aria-expanded", String(isOpen));
+        const mobile = window.innerWidth <= 720;
+        const wasOpen = mobile ? navigation.classList.contains("open") : !navigation.classList.contains("closed");
+        const shouldOpen = !wasOpen;
+        if (mobile) navigation.classList.toggle("open", shouldOpen);
+        else navigation.classList.toggle("closed", !shouldOpen);
+        menuButton.setAttribute("aria-expanded", String(shouldOpen));
+        menuButton.setAttribute("aria-label", language === "ar" ? (shouldOpen ? "إغلاق القائمة" : "فتح القائمة") : (shouldOpen ? "Close menu" : "Open menu"));
       });
       navigation.querySelectorAll("a").forEach(link => link.addEventListener("click", () => {
         navigation.classList.remove("open");
@@ -101,7 +109,7 @@
       languageButton.addEventListener("click", () => setLanguage(language === "ar" ? "en" : "ar"));
       window.addEventListener("resize", () => {
         if (window.innerWidth > 720) {
-          navigation.classList.remove("open");
+          navigation.classList.remove("open", "closed");
           menuButton.setAttribute("aria-expanded", "false");
         }
       });
